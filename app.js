@@ -86,7 +86,7 @@ function showHome() {
   <div class="home">
     <section class="hero">
       <div class="overline">Servidoras del Señor y de la Virgen de Matará</div>
-      <h1>Derecho <em>Propio</em></h1>
+      <h1>Derecho Propio</h1>
       <p>Las Constituciones y los Directorios de las Servidoras, para leer, buscar y citar — también sin conexión.</p>
       <div class="ornament">${ICON.orn}</div>
       <form class="searchbox" id="home-search" role="search">
