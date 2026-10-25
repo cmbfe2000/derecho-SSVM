@@ -1,0 +1,373 @@
+{
+ "title": "Derecho Propio SSVM",
+ "version": "5a4c2609",
+ "built": "2026-10-25 15:54",
+ "groups": [
+  {
+   "id": "fund",
+   "title": "Textos fundamentales",
+   "docs": [
+    "constituciones",
+    "espiritualidad"
+   ]
+  },
+  {
+   "id": "vida",
+   "title": "Vida religiosa",
+   "docs": [
+    "vida-consagrada",
+    "vida-fraterna-en-comun",
+    "liturgia",
+    "gobierno",
+    "rama-oriental",
+    "tercera-orden"
+   ]
+  },
+  {
+   "id": "form",
+   "title": "Formación",
+   "docs": [
+    "vocaciones",
+    "apirantados",
+    "noviciado",
+    "estudiantados",
+    "formacion-intelectual",
+    "formacion-permane",
+    "direccion-espiritual"
+   ]
+  },
+  {
+   "id": "apos",
+   "title": "Apostolado",
+   "docs": [
+    "parroquias",
+    "colegios",
+    "catequesis",
+    "anuncio-de-la-palabra-de-dios",
+    "mision-ad-gentes",
+    "misiones-populares",
+    "obras-de-misericordia",
+    "casas-de-acogida-para-jovenes",
+    "oratorio",
+    "evangelizacion-de-la-cultura",
+    "ecumenismo"
+   ]
+  }
+ ],
+ "docs": [
+  {
+   "id": "constituciones",
+   "title": "Constituciones",
+   "short": "Const.",
+   "edition": "26.9",
+   "source": "SSVM-Constituciones y Directorio de Espiritualidad (26.9).epub",
+   "hash": "050351801b",
+   "words": 34047,
+   "articles": 387,
+   "notes": 362,
+   "images": [
+    "data/img/constituciones/58d5fff06d.jpeg"
+   ]
+  },
+  {
+   "id": "espiritualidad",
+   "title": "Directorio de Espiritualidad",
+   "short": "DEsp",
+   "edition": "26.9",
+   "source": "SSVM-Constituciones y Directorio de Espiritualidad (26.9).epub",
+   "hash": "a4d7999aa0",
+   "words": 32418,
+   "articles": 325,
+   "notes": 427,
+   "images": []
+  },
+  {
+   "id": "anuncio-de-la-palabra-de-dios",
+   "title": "Directorio de Anuncio de la Palabra de Dios",
+   "short": "Anuncio de la Palabra de Dios",
+   "edition": "26.9",
+   "source": "SSVM-Directorio de Anuncio de la Palabra de Dios (26.9).epub",
+   "hash": "3277bf30a0",
+   "words": 10598,
+   "articles": 111,
+   "notes": 102,
+   "images": []
+  },
+  {
+   "id": "apirantados",
+   "title": "Directorio de Aspirantados",
+   "short": "Apirantados",
+   "edition": "26.9",
+   "source": "SSVM-Directorio de Apirantados (26.9).epub",
+   "hash": "db59050317",
+   "words": 15361,
+   "articles": 174,
+   "notes": 171,
+   "images": []
+  },
+  {
+   "id": "casas-de-acogida-para-jovenes",
+   "title": "Directorio de Casas de acogida para jóvenes",
+   "short": "Casas de acogida para jóvenes",
+   "edition": "26.9",
+   "source": "SSVM-Directorio de Casas de acogida para jóvenes (26.9).epub",
+   "hash": "a60781e4fa",
+   "words": 10313,
+   "articles": 161,
+   "notes": 42,
+   "images": []
+  },
+  {
+   "id": "catequesis",
+   "title": "Directorio de Catequesis",
+   "short": "Catequesis",
+   "edition": "26.9",
+   "source": "SSVM-Directorio de Catequesis (26.9).epub",
+   "hash": "46e0cb224d",
+   "words": 20163,
+   "articles": 144,
+   "notes": 105,
+   "images": []
+  },
+  {
+   "id": "colegios",
+   "title": "Directorio de Colegios",
+   "short": "Colegios",
+   "edition": "26.9",
+   "source": "SSVM-Directorio de Colegios (26.9).epub",
+   "hash": "64006d33a3",
+   "words": 14595,
+   "articles": 274,
+   "notes": 110,
+   "images": []
+  },
+  {
+   "id": "direccion-espiritual",
+   "title": "Directorio de Dirección espiritual",
+   "short": "Dirección Espiritual",
+   "edition": "26.9",
+   "source": "SSVM-Directorio de Dirección Espiritual (26.9).epub",
+   "hash": "89381120a3",
+   "words": 6055,
+   "articles": 70,
+   "notes": 29,
+   "images": []
+  },
+  {
+   "id": "ecumenismo",
+   "title": "Directorio de Ecumenismo",
+   "short": "Ecumenismo",
+   "edition": "26.9",
+   "source": "SSVM-Directorio de Ecumenismo (26.9).epub",
+   "hash": "b1a86dd876",
+   "words": 11076,
+   "articles": 118,
+   "notes": 130,
+   "images": []
+  },
+  {
+   "id": "estudiantados",
+   "title": "Directorio de Estudiantados",
+   "short": "Estudiantados",
+   "edition": "26.9",
+   "source": "SSVM-Directorio de Estudiantados (26.9).epub",
+   "hash": "974bb0ab85",
+   "words": 24103,
+   "articles": 375,
+   "notes": 439,
+   "images": []
+  },
+  {
+   "id": "evangelizacion-de-la-cultura",
+   "title": "Directorio de Evangelización de la cultura",
+   "short": "Evangelización de la cultura",
+   "edition": "26.9",
+   "source": "SSVM-Directorio de Evangelización de la cultura (26.9).epub",
+   "hash": "0f77427580",
+   "words": 28475,
+   "articles": 244,
+   "notes": 360,
+   "images": []
+  },
+  {
+   "id": "formacion-permane",
+   "title": "Directorio de Formación permanente",
+   "short": "Formacion Permane",
+   "edition": "26.9",
+   "source": "SSVM-Directorio de Formacion Permane (26.9).epub",
+   "hash": "69840f576d",
+   "words": 8023,
+   "articles": 84,
+   "notes": 180,
+   "images": []
+  },
+  {
+   "id": "formacion-intelectual",
+   "title": "Directorio de Formación intelectual",
+   "short": "Formacion intelectual",
+   "edition": "26.9",
+   "source": "SSVM-Directorio de Formacion intelectual (26.9).epub",
+   "hash": "4be5407341",
+   "words": 10284,
+   "articles": 91,
+   "notes": 100,
+   "images": []
+  },
+  {
+   "id": "gobierno",
+   "title": "Directorio de Gobierno",
+   "short": "Gobierno",
+   "edition": "26.9",
+   "source": "SSVM-Directorio de Gobierno (26.9).epub",
+   "hash": "bacfe8cf6d",
+   "words": 9994,
+   "articles": 282,
+   "notes": 79,
+   "images": []
+  },
+  {
+   "id": "liturgia",
+   "title": "Directorio de Liturgia",
+   "short": "Liturgia",
+   "edition": "26.9",
+   "source": "SSVM-Directorio de Liturgia (26.9).epub",
+   "hash": "3b00203f86",
+   "words": 8775,
+   "articles": 122,
+   "notes": 152,
+   "images": []
+  },
+  {
+   "id": "mision-ad-gentes",
+   "title": "Directorio de Misión ad gentes",
+   "short": "Mision Ad Gentes",
+   "edition": "26.9",
+   "source": "SSVM-Directorio de Mision Ad Gentes (26.9).epub",
+   "hash": "86eb1013ed",
+   "words": 14993,
+   "articles": 176,
+   "notes": 84,
+   "images": []
+  },
+  {
+   "id": "misiones-populares",
+   "title": "Directorio de Misiones populares",
+   "short": "Misiones Populares",
+   "edition": "26.9",
+   "source": "SSVM-Directorio de Misiones Populares (26.9).epub",
+   "hash": "47b84c2164",
+   "words": 32438,
+   "articles": 97,
+   "notes": 184,
+   "images": []
+  },
+  {
+   "id": "noviciado",
+   "title": "Directorio de Noviciado",
+   "short": "Noviciado",
+   "edition": "26.9",
+   "source": "SSVM-Directorio de Noviciado (26.9).epub",
+   "hash": "8a0d831eee",
+   "words": 19162,
+   "articles": 227,
+   "notes": 113,
+   "images": []
+  },
+  {
+   "id": "obras-de-misericordia",
+   "title": "Directorio de Obras de misericordia",
+   "short": "Obras de misericordia",
+   "edition": "26.9",
+   "source": "SSVM-Directorio de Obras de misericordia (26.9).epub",
+   "hash": "d612894f1b",
+   "words": 36184,
+   "articles": 264,
+   "notes": 203,
+   "images": []
+  },
+  {
+   "id": "oratorio",
+   "title": "Directorio de Oratorio",
+   "short": "Oratorio",
+   "edition": "26.9",
+   "source": "SSVM-Directorio de Oratorio (26.9).epub",
+   "hash": "542375f201",
+   "words": 14085,
+   "articles": 201,
+   "notes": 106,
+   "images": []
+  },
+  {
+   "id": "parroquias",
+   "title": "Directorio de Parroquias",
+   "short": "Parroquias",
+   "edition": "26.9",
+   "source": "SSVM-Directorio de Parroquias (26.9).epub",
+   "hash": "8e9f0cb938",
+   "words": 12006,
+   "articles": 166,
+   "notes": 103,
+   "images": []
+  },
+  {
+   "id": "rama-oriental",
+   "title": "Directorio de Rama oriental",
+   "short": "Rama oriental",
+   "edition": "26.9",
+   "source": "SSVM-Directorio de Rama oriental (26.9).epub",
+   "hash": "5aefb908cf",
+   "words": 17740,
+   "articles": 283,
+   "notes": 204,
+   "images": []
+  },
+  {
+   "id": "tercera-orden",
+   "title": "Directorio de Tercera orden",
+   "short": "Tercera Orden",
+   "edition": "26.9",
+   "source": "SSVM-Directorio de Tercera Orden (26.9).epub",
+   "hash": "6bed0d0a77",
+   "words": 64601,
+   "articles": 665,
+   "notes": 609,
+   "images": []
+  },
+  {
+   "id": "vida-consagrada",
+   "title": "Directorio de Vida consagrada",
+   "short": "Vida consagrada",
+   "edition": "26.9",
+   "source": "SSVM-Directorio de Vida consagrada (26.9).epub",
+   "hash": "f65cbd6c28",
+   "words": 37222,
+   "articles": 480,
+   "notes": 611,
+   "images": []
+  },
+  {
+   "id": "vida-fraterna-en-comun",
+   "title": "Directorio de Vida fraterna en común",
+   "short": "Vida fraterna en común",
+   "edition": "26.9",
+   "source": "SSVM-Directorio de Vida fraterna en común (26.9).epub",
+   "hash": "f650382675",
+   "words": 9655,
+   "articles": 96,
+   "notes": 79,
+   "images": []
+  },
+  {
+   "id": "vocaciones",
+   "title": "Directorio de Vocaciones",
+   "short": "vocaciones",
+   "edition": "26.9",
+   "source": "SSVM-Directorio de vocaciones (26.9).epub",
+   "hash": "cffce264e7",
+   "words": 11122,
+   "articles": 127,
+   "notes": 111,
+   "images": []
+  }
+ ]
+}
