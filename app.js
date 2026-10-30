@@ -9,7 +9,7 @@ const fold = s => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
 const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const store = {
   get(k, d) { try { const v = localStorage.getItem('ssvm.' + k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
-  set(k, v) { try { localStorage.setItem('ssvm.' + k, JSON.stringify(v)); } catch (e) {} }
+  set(k, v) { try { localStorage.setItem('ssvm.' + k, JSON.stringify(v)); return true; } catch (e) { return false; } }
 };
 
 const HUES = { fund: '#1F4A86', vida: '#7A3B5E', form: '#3D6B48', apos: '#9A6B1F', otros: '#6B5B73' };
@@ -282,7 +282,7 @@ function setupDocClicks() {
     if (fn) {
       e.preventDefault();
       const d = DOCS.get(view.dataset.doc); const note = d && d.notes[+fn.dataset.fn];
-      if (note != null) openPop(fn, `<div class="p-k">Nota ${esc(fn.textContent)}</div>${note}`);
+      if (note != null) openPop(fn, `<div class="p-k">Nota ${esc(fn.textContent)}</div><div class="footnote-content">${note}</div>`);
       return;
     }
     const img = e.target.closest('.doc img');
@@ -362,7 +362,7 @@ function toggleMark(meta, p) {
 }
 function markSaved() {
   const id = view.dataset.doc; if (!id) return;
-  $$('#doc p.saved').forEach(p => p.classList.remove('saved'));
+  $$('#doc .saved').forEach(p => p.classList.remove('saved'));
   for (const m of marks) if (m.d === id) { const el = document.getElementById(m.a); if (el) el.classList.add('saved'); }
 }
 function showMarks() {
@@ -370,16 +370,69 @@ function showMarks() {
   document.title = 'Marcadores · ' + LIB.title;
   view.innerHTML = `<div class="page">
     <div class="page-head"><h1>Marcadores</h1><span class="muted">${marks.length || ''}</span></div>
+    <div class="bookmark-tools">
+      <button class="btn" id="marks-export"${marks.length ? '' : ' disabled'}>Exportar copia</button>
+      <button class="btn ghost" id="marks-import">Importar copia</button>
+      <input type="file" id="marks-file" accept="application/json,.json" hidden aria-label="Seleccionar una copia de los marcadores">
+    </div>
+    <p class="muted small">Guarde una copia de sus marcadores o transfiéralos a otro dispositivo. La importación conserva los que ya tiene.</p>
     ${marks.length ? `<ul class="results">${marks.map((m, i) => { const d = META.get(m.d); if (!d) return ''; return `
       <li class="mark-item"><a class="result" style="--hue:${d.hue}" href="#/d/${m.d}/${m.a}">
         <div class="r-top"><span class="r-doc">${esc(d.title)}</span>${m.n ? `<span class="r-n">${esc(m.n)}</span>` : ''}</div>
         <div class="snip">${esc(m.t)}</div></a>
         <button class="icon-btn rm" data-i="${i}" aria-label="Quitar"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></li>`; }).join('')}</ul>`
-    : `<div class="empty"><div class="big">Aún no hay marcadores</div>Pulse el número de cualquier artículo y elija «Guardar en marcadores».</div>`}
+    : `<div class="empty"><div class="big">Aún no hay marcadores</div>Pulse el número de un párrafo y elija «Guardar en marcadores».</div>`}
   </div>`;
   view.onclick = null;
   $$('.rm', view).forEach(b => b.addEventListener('click', e => { e.preventDefault(); marks.splice(+b.dataset.i, 1); store.set('marks', marks); showMarks(); }));
+  $('#marks-export').onclick = exportBookmarks;
+  $('#marks-import').onclick = () => $('#marks-file').click();
+  $('#marks-file').onchange = async e => {
+    const file = e.target.files[0]; if (!file) return;
+    try {
+      if (file.size > 5 * 1024 * 1024) throw new Error('El archivo es demasiado grande (máximo 5 MB).');
+      const rows = DerechoData.parseBookmarkBackup(JSON.parse(await file.text()));
+      const result = DerechoData.mergeBookmarks(marks, rows, m => {
+        const meta = META.get(m.d);
+        return !!meta && meta.paragraphs.includes(m.a.slice(1));
+      });
+      // Rebuild snippets from the library, rather than trusting imported text.
+      const added = result.bookmarks.slice(0, result.added);
+      const documents = new Map();
+      for (const id of new Set(added.map(m => m.d))) {
+        const data = await loadDoc(id);
+        documents.set(id, new DOMParser().parseFromString(data.html, 'text/html'));
+      }
+      for (const mark of added) {
+        const dom = documents.get(mark.d), paragraph = dom.getElementById(mark.a);
+        if (!paragraph) throw new Error('Un párrafo de la copia no está disponible. No se ha modificado ningún marcador.');
+        const unit = paragraph.dataset.u;
+        const nodes = [...dom.querySelectorAll('[data-u]')].filter(n => n.dataset.u === unit);
+        const text = nodes.map(n => { const copy = n.cloneNode(true); copy.querySelectorAll('.num,sup').forEach(x => x.remove()); return copy.textContent.trim(); }).join('\n');
+        mark.t = text.length > 240 ? text.slice(0, 240) + '…' : text;
+      }
+      if (!result.added) {
+        toast(result.skipped ? 'No hay marcadores nuevos válidos para importar.' : 'Los marcadores de la copia ya están guardados.');
+        return;
+      }
+      if (!store.set('marks', result.bookmarks)) throw new Error('No se pueden guardar los marcadores en este dispositivo.');
+      marks = result.bookmarks;
+      markSaved();
+      if (currentKey === 'marcadores') showMarks();
+      toast(`${result.added} ${result.added === 1 ? 'marcador importado' : 'marcadores importados'}${result.duplicates ? ` · ${result.duplicates} duplicados omitidos` : ''}${result.skipped ? ` · ${result.skipped} no válidos omitidos` : ''}`);
+    } catch (err) { toast(err instanceof SyntaxError ? 'El archivo no es una copia JSON válida.' : (err.message || 'No se puede importar la copia.')); }
+    finally { e.target.value = ''; }
+  };
   window.scrollTo(0, 0);
+}
+function exportBookmarks() {
+  const backup = { format: 'ssvm-es-bookmarks', version: 1, exportedAt: new Date().toISOString(), bookmarks: marks };
+  const url = URL.createObjectURL(new Blob([JSON.stringify(backup, null, 2)], { type: 'application/json' }));
+  const link = document.createElement('a'); link.href = url;
+  link.download = 'marcadores-ssvm-' + new Date().toISOString().slice(0, 10) + '.json';
+  document.body.append(link); link.click(); link.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+  toast('Copia de marcadores exportada');
 }
 
 /* ------------------------------------------------------------ search */
@@ -453,10 +506,11 @@ function filterDocs() {
 
 const ALIASES = { c: 'constituciones', const: 'constituciones', cons: 'constituciones', constituciones: 'constituciones', de: 'espiritualidad', desp: 'espiritualidad', 'dir esp': 'espiritualidad', espiritualidad: 'espiritualidad' };
 function detectJump(q) {
-  const m = q.trim().match(/^(.*?)[\s,]*(?:n\.?\s*º?|nº|n°|no\.|#)?\s*\[?(\d{1,3})\]?\s*$/i);
+  const m = q.trim().match(/^(.*?)[\s,]*(?:n\.?\s*º?|nº|n°|no\.|#)?\s*\[?(\d{1,4}[a-z]?)\]?\s*$/i);
   if (!m) return null;
   const name = fold(m[1]).replace(/\./g, ' ').replace(/\s+/g, ' ').trim();
-  const n = m[2];
+  const n = DerechoData.parseParagraphReference(m[2]);
+  if (!n) return null;
   let id = null;
   if (!name) { const fd = filterDocs(); if (fd && fd.length === 1) id = fd[0]; else return null; }
   else if (ALIASES[name]) id = ALIASES[name];
@@ -467,7 +521,7 @@ function detectJump(q) {
          LIB.order.find(i => fold(META.get(i).title).includes(nm));
   }
   const d = id && META.get(id);
-  if (!d || !d.articles || +n > d.articles + 20) return null;
+  if (!d || !d.paragraphs.includes(n)) return null;
   return { id, n, d };
 }
 
@@ -531,10 +585,16 @@ function setupChrome() {
   $('#toc-list').addEventListener('click', e => { if (e.target.closest('a')) closeAll(); });
   $('#goto-form').addEventListener('submit', e => {
     e.preventDefault();
-    const n = $('#goto-n').value.trim(); if (!n) return;
-    closeAll(); $('#goto-n').value = '';
-    go(`#/d/${view.dataset.doc}/n${parseInt(n, 10)}`);
+    const input = $('#goto-n');
+    const n = DerechoData.parseParagraphReference(input.value);
+    const meta = META.get(view.dataset.doc);
+    if (!n || !meta || !meta.paragraphs.includes(n)) {
+      input.setCustomValidity('Introduzca un número que exista en el documento, por ejemplo 2a o 214a.'); input.reportValidity(); return;
+    }
+    input.setCustomValidity(''); closeAll(); input.value = '';
+    go(`#/d/${view.dataset.doc}/n${n}`);
   });
+  $('#goto-n').addEventListener('input', e => e.target.setCustomValidity(''));
   document.addEventListener('click', e => { if (!e.target.closest('#pop') && !e.target.closest('sup.fn') && !e.target.closest('.num')) closePop(); });
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') { closeAll(); return; }
@@ -630,7 +690,7 @@ function setupSW() {
     // check periodically and when the app comes back to the foreground
     setInterval(() => reg.update().catch(() => {}), 60 * 60 * 1000);
     document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') reg.update().catch(() => {}); });
-  });
+  }).catch(() => { $('#btn-update').onclick = () => location.reload(); });
   let reloading = false;
   navigator.serviceWorker.addEventListener('controllerchange', () => { if (!firstInstall && !reloading) { reloading = true; location.reload(); } });
 }
