@@ -318,3 +318,7 @@ body.in-doc #progress{display:block}
 .doc sup.fn a{font-family:var(--sans);font-weight:600;color:var(--accent);text-decoration:none;padding:0 .16em;border-radius:3px}
 .doc sup.fn a:hover,.doc sup.fn a:focus-visible{background:var(--accent-soft);outline:1px solid var(--accent);outline-offset:2px}
 .footnote-content{font-family:var(--read-font);font-weight:400;overflow-wrap:anywhere}
+
+
+/* Iconos institucionales */
+.brand-mark{width:38px;height:38px;border-radius:8px;background:#223d4f;box-shadow:none;overflow:hidden}.brand-mark img{display:block;width:100%;height:100%;object-fit:contain;border-radius:inherit}

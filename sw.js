@@ -1,6 +1,6 @@
 /* Service worker — offline cache + versioned updates.
    VERSION and ASSETS are rewritten by tools/build.py on every build. */
-const VERSION = '6b32be9e00';
+const VERSION = 'icons-246414e0ba69';
 const ASSETS = [
  "./",
  "app-data.js",
@@ -42,10 +42,13 @@ const ASSETS = [
  "fonts/source-serif-4-latin-400-italic.woff2",
  "fonts/source-serif-4-latin-400-normal.woff2",
  "fonts/source-serif-4-latin-600-normal.woff2",
- "icons/apple-touch-icon.png",
- "icons/icon-192.png",
- "icons/icon-512.png",
- "icons/icon-maskable-512.png",
+ "icons/brand-192.png",
+ "icons/brand-32.png",
+ "icons/brand-512.png",
+ "icons/brand-apple-180.png",
+ "icons/brand-maskable-512.png",
+ "icons/brand.svg",
+ "index.html",
  "manifest.webmanifest",
  "robots.txt",
  "search-worker.js",
